@@ -23,4 +23,6 @@ public class Product {
         this.qty = qty;
         this.price = price;
     }
+
+    // Need to overload .equals() for .indexOf and .remove
 }
