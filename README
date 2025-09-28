@@ -1,0 +1,5 @@
+This Command compiles and runs the driver
+
+```
+clear && javac -d build *.java && java -cp build Driver
+```
