@@ -27,4 +27,8 @@ public class Wishlist {
             this.product_list.add(new Product(product));
         }
     }
+
+    static boolean Unit_Test() {
+        return false;
+    }
 }

@@ -1,7 +1,7 @@
 public class Invoice {
     // The cost of everything in this.product_list
-    private int total_price;
-    public int get_total_price() {return this.total_price;}
+    private double total_price;
+    public double get_total_price() {return this.total_price;}
 
     // Reusing Wishlist to store the products of an invoice
     private Wishlist product_list;
@@ -27,5 +27,9 @@ public class Invoice {
         for (Product product : this.product_list.get_product_list()) {
             this.total_price += product.get_price();
         }
+    }
+
+    static boolean Unit_Test() {
+        return false;
     }
 }

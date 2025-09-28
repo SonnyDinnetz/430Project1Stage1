@@ -22,9 +22,9 @@ public class Product {
 
 
     // Price of a product
-    private int price;
-    public int get_price() {return this.price;}
-    public void set_price(int price) {this.price = price;}
+    private double price;
+    public double get_price() {return this.price;}
+    public void set_price(double price) {this.price = price;}
 
 
     // Used to prompt user for purchases
@@ -35,7 +35,7 @@ public class Product {
 
 
     // Primary Constructor
-    public Product(String name, int qty, int price) {
+    public Product(String name, int qty, double price) {
         this.uid = get_next_uid();
         this.name = name;
         this.qty = qty;
@@ -57,6 +57,10 @@ public class Product {
         if (this.uid == other.get_uid()) {
             return true;
         }
+        return false;
+    }
+
+    static boolean Unit_Test() {
         return false;
     }
 }

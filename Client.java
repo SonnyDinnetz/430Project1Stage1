@@ -25,9 +25,9 @@ public class Client {
 
 
     // Client's current balance
-    private int balance;
-    public int get_balance() {return this.balance;}
-    public void accept_payment(int amount) {this.balance -= amount;}
+    private double balance;
+    public double get_balance() {return this.balance;}
+    public void accept_payment(double amount) {this.balance -= amount;}
 
 
     // History of all purchases created via this.process_order()
@@ -86,4 +86,11 @@ public class Client {
         this.wishlist = new Wishlist();
         this.transaction_history = new ArrayList<Invoice>();
     }
+
+
+    static boolean Unit_Test() {
+        return false;
+    }
 }
+
+
