@@ -59,6 +59,7 @@ public class Driver {
         new Object[] {  "Wendy Zhang",          "258 Larch Ln"      }
     );
 
+    // Adds everything in add_these to to_this. Relies on the format in RAW_PRODUCT_INFO
     static public void add_products(List<Object[]> add_these, List<Product> to_this) {
         for (Object[] product : add_these) {
             Product new_product = new Product((String)product[0], (int)product[1], (int)product[2]);
@@ -66,6 +67,7 @@ public class Driver {
         }
     }
 
+    // Adds everything in add_these to to_this. Relies on the format in RAW_CLIENT_INFO
     static public void add_clients(List<Object[]> add_these, List<Client> to_this) {
         for (Object[] client : add_these) {
             Client new_client = new Client((String)client[0], (String)client[1]);
@@ -74,14 +76,12 @@ public class Driver {
     }
 
 
-
     public static void main(String[] args) {
         List<Product> master_product_list = new ArrayList<Product>();
         add_products(RAW_PRODUCT_INFO, master_product_list);
 
         List<Client> master_client_list = new ArrayList<Client>();
         add_clients(RAW_CLIENT_INFO, master_client_list);
-
 
         // Now we need to test stuff
     }
