@@ -9,9 +9,18 @@ public class Wishlist {
         int index = this.product_list.indexOf(product);
         return product_list.remove(index);
     }
+    protected List<Product> get_list() {return product_list;}
 
     public Wishlist(Product product) {
         this.product_list = new ArrayList<Product>();
         this.product_list.add(product);
+    }
+
+    public Wishlist(Wishlist list) {
+        this.product_list = new ArrayList<Product>();
+
+        for (Product product : list.get_list()) {
+            this.product_list.add(new Product(product));
+        }
     }
 }

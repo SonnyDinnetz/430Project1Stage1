@@ -10,12 +10,12 @@ public class Product {
     public void set_name(String name) {this.name = name;}
 
     private int qty;
-    public int get_address() {return this.qty;}
-    public void set_address(int qty) {this.qty = qty;}
+    public int get_qty() {return this.qty;}
+    public void set_qty(int qty) {this.qty = qty;}
 
     private int price;
-    public int get_balance() {return this.price;}
-    public void set_balance(int price) {this.price = price;}
+    public int get_price() {return this.price;}
+    public void set_price(int price) {this.price = price;}
 
     public Product(String name, int qty, int price) {
         this.uid = get_next_uid();
@@ -24,5 +24,17 @@ public class Product {
         this.price = price;
     }
 
-    // Need to overload .equals() for .indexOf and .remove
+    public Product(Product product) {
+        this.uid = product.get_uid();
+        this.name = product.get_name();
+        this.qty = product.get_qty();
+        this.price = product.get_price();
+    }
+
+    public boolean equals(Product other) {
+        if (this.uid == other.get_uid()) {
+            return true;
+        }
+        return false;
+    }
 }
