@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class Driver {
     public static void main(String[] args) {
+        List<Client> master_client_list = new ArrayList<Client>();
+        add_clients(RAW_CLIENT_INFO, master_client_list);
+
+
+
+
         for (String arg : args) {
             if (arg.equalsIgnoreCase("Client") || arg.equalsIgnoreCase("all")) {
                 if (Client.Unit_Test()) {System.out.println("Passed Client Unit test");}
@@ -26,8 +32,8 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP1") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_1()) {System.out.println("Passed Business Process Test 1");}
-                else {System.out.println(                          "Failed Business Process Test 1");}
+                if (test_business_process_1(master_client_list)) {System.out.println("Passed Business Process Test 1");}
+                else {System.out.println(                                            "Failed Business Process Test 1");}
             }
 
             if (arg.equalsIgnoreCase("BP2") || arg.equalsIgnoreCase("all")) {
@@ -157,11 +163,28 @@ public class Driver {
      *      - Clients added one at a time.
      *      - Each client has to provide a name and address.
      */
-    static public boolean test_business_process_1() {
-        List<Client> master_client_list = new ArrayList<Client>();
-        add_clients(RAW_CLIENT_INFO, master_client_list);
+    static public boolean test_business_process_1(List<Client> master_client_list) {
+        boolean pass = true;
 
-        return false;
+        // Worlds least efficient search
+        for (Client client : master_client_list) {
+            String name = client.get_name();
+            String addy = client.get_address();
+
+            boolean found_it = false;
+
+            for (Object[] obj : RAW_CLIENT_INFO) {
+                if (name == (String)obj[0] && addy == (String)obj[1]) {
+                    found_it = true;
+                }
+            }
+
+            if (!found_it) {
+                pass = false;   // Shouldn't get here unless there are no matches.
+            }
+        }
+
+        return pass;
     }
 
     /** Business Process 2
