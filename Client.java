@@ -88,6 +88,12 @@ public class Client {
     }
 
 
+    @Override
+    public String toString() {
+        return "Client UID-" + this.uid + " Name-" + this.name + "Address-" + this.address + "Balance-" + this.balance;
+    }
+
+
     static boolean Unit_Test() {
         return false;
     }
