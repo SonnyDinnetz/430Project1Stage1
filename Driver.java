@@ -7,7 +7,8 @@ public class Driver {
         List<Client> master_client_list = new ArrayList<Client>();
         add_clients(RAW_CLIENT_INFO, master_client_list);
 
-
+        List<Product> master_product_list = new ArrayList<Product>();
+        add_products(RAW_PRODUCT_INFO, master_product_list);
 
 
         for (String arg : args) {
@@ -37,8 +38,8 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP2") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_2()) {System.out.println("Passed Business Process Test 2");}
-                else {System.out.println(                          "Failed Business Process Test 2");}
+                if (test_business_process_2(master_product_list)) {System.out.println("Passed Business Process Test 2");}
+                else {System.out.println(                                             "Failed Business Process Test 2");}
             }
 
             if (arg.equalsIgnoreCase("BP3") || arg.equalsIgnoreCase("all")) {
@@ -195,11 +196,29 @@ public class Driver {
      *      - Allow for adding multiple products simultaneously.
      *      - Product added with a name, amount in stock, and a sale price.
      */
-    static public boolean test_business_process_2() {
-        List<Product> master_product_list = new ArrayList<Product>();
-        add_products(RAW_PRODUCT_INFO, master_product_list);
+    static public boolean test_business_process_2(List<Product> master_product_list) {
+        boolean pass = true;
 
-        return false;
+        // Worlds least efficient search
+        for (Product product : master_product_list) {
+            String name = product.get_name();
+            int qty = product.get_qty();
+            double price = product.get_price();
+
+            boolean found_it = false;
+
+            for (Object[] obj : RAW_PRODUCT_INFO) {
+                if (name == (String)obj[0] && qty == (int)obj[1] && price == (double)obj[2] ) {
+                    found_it = true;
+                }
+            }
+
+            if (!found_it) {
+                pass = false;   // Shouldn't get here unless there are no matches.
+            }
+        }
+
+        return pass;
     }
 
     /** Business Process 3
