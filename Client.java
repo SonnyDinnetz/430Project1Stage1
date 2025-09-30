@@ -43,7 +43,7 @@ public class Client {
     }
     // Makes a copy of invoice, actually charges client
     private void post_transaction(Invoice invoice) {
-        this.balance += invoice.get_total_price();
+        this.balance -= invoice.get_total_price();
         this.transaction_history.add(new Invoice(invoice));
     }
 
@@ -93,12 +93,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client UID-" + this.uid + " Name-" + this.name + "Address-" + this.address + "Balance-" + this.balance;
-    }
-
-
-    static boolean Unit_Test() {
-        return false;
+        return "Client UID-" + this.uid + "  Name-" + this.name + "  Address-" + this.address + "  Balance-" + this.balance;
     }
 }
 

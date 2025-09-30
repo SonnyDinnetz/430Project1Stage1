@@ -1,4 +1,8 @@
+import java.util.Scanner;
+
 public class Product {
+    private static Scanner scanner = new Scanner(System.in);
+
     // Ensures each uid is unique, would need to be stashed when a power cycle occurs
     private static int next_uid;
     private static int get_next_uid() {return next_uid++;}
@@ -29,8 +33,16 @@ public class Product {
 
     // Used to prompt user for purchases
     public boolean prompt_user_to_purchase() {
-        // this needs to print to console and wait for a yes/no then conditionally return based on that.
-        return true;
+        System.out.print(this);
+        System.out.print("      Do you want to purchase this? Y/N   ");
+
+        String input = scanner.nextLine().trim().toUpperCase();
+        while (!input.equals("Y") && !input.equals("N")) {
+            System.out.print("Please enter Y or N: ");
+            input = scanner.nextLine().trim().toUpperCase();
+        }
+
+        return input.equals("Y");
     }
 
 
@@ -60,7 +72,9 @@ public class Product {
         return false;
     }
 
-    static boolean Unit_Test() {
-        return false;
+
+    @Override
+    public String toString() {
+        return "Product UID-" + this.uid + "  Name-" + this.name + "  Qty-" + this.qty + "  Price-" + this.price;
     }
 }

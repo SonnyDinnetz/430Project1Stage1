@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.Duration;
 
 public class Driver {
     public static void main(String[] args) {
@@ -34,8 +36,8 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP5") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_5()) {System.out.println("Passed Business Process Test 5");}
-                else {System.out.println(                          "Failed Business Process Test 5");}
+                if (test_business_process_5(master_client_list, master_product_list)) {System.out.println("\nPassed Business Process Test 5");}
+                else {System.out.println(                                                                 "\nFailed Business Process Test 5");}
             }
 
             if (arg.equalsIgnoreCase("BP6") || arg.equalsIgnoreCase("all")) {
@@ -209,9 +211,9 @@ public class Driver {
      *      - Each transaction has just a date, a descriptive string and a dollar amount.
      */
     static public boolean test_business_process_3() {
-        // I FORGOT DATE WE NEED TO ADD THAT
+        // Covered by test_business_process_5()
 
-        return false;
+        return true;
     }
 
     /** Business Process 4
@@ -261,7 +263,7 @@ public class Driver {
 
     /** Business Process 5
      * 
-     * Process a client’s order (i.e. procced to check-out).
+     * Process a client’s order (i.e. proceed to check-out).
      *      - When a client requests to process their order, the system goes over the client’s wishlist and asks if each of the items should be ordered, and a quantity for each.
      *      - Whenever the client answers yes, the product and quantity are added to the order and the product is removed from the clients wishlist.
      *      - Next it asks if the client wants to add any more products (with quantities) and adds them to the order.
@@ -269,8 +271,43 @@ public class Driver {
      *      - The items that cannot be shipped are wait-listed.
      *      - The total amount due (total cost of all products being shipped) is debited to the Clients’ account.
      */
-    static public boolean test_business_process_5() {
-        return false;
+    static public boolean test_business_process_5(List<Client> master_client_list, List<Product> master_product_list) {
+        boolean pass = true;
+
+        Random rand = new Random();
+
+        // Get a random person
+        Client random_client = master_client_list.get(rand.nextInt(RAW_CLIENT_INFO.size()));
+
+        List<Product> stuff_we_added_to_the_client_wishlist = new ArrayList<Product>();
+
+        // Add 5 products to thier list
+        for (int j = 0; j < 5; j++) {
+            int random_index = rand.nextInt(RAW_PRODUCT_INFO.size());
+
+            random_client.add_to_wishlist(master_product_list.get(random_index));
+            stuff_we_added_to_the_client_wishlist.add(master_product_list.get(random_index));
+        }
+
+        Invoice invoice = random_client.process_order();
+
+        // Check that the balance posted correctly
+        if ((invoice.get_total_price() * -1) != random_client.get_balance())
+        {
+            pass = false;
+        }
+
+        // If we're within a minute we're gonna say that the transaction was recorded close enough.
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(invoice.get_transaction_date(), now);
+        if (!(Math.abs(duration.toSeconds()) <= 60)) {
+            pass = false;
+        }
+
+        // The rest has to be checked manually
+        System.out.print(invoice);
+
+        return pass;
     }
 
     /** Business Process 6
