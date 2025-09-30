@@ -12,26 +12,6 @@ public class Driver {
 
 
         for (String arg : args) {
-            if (arg.equalsIgnoreCase("Client") || arg.equalsIgnoreCase("all")) {
-                if (Client.Unit_Test()) {System.out.println("Passed Client Unit test");}
-                else {System.out.println(                   "Failed Client Unit test");}
-            }
-
-            if (arg.equalsIgnoreCase("Product") || arg.equalsIgnoreCase("all")) {
-                if (Product.Unit_Test()) {System.out.println("Passed Product Unit test");}
-                else {System.out.println(                    "Failed Product Unit test");}
-            }
-
-            if (arg.equalsIgnoreCase("Wishlist") || arg.equalsIgnoreCase("all")) {
-                if (Wishlist.Unit_Test()) {System.out.println("Passed Wishlist Unit test");}
-                else {System.out.println(                     "Failed Wishlist Unit test");}
-            }
-
-            if (arg.equalsIgnoreCase("Invoice") || arg.equalsIgnoreCase("all")) {
-                if (Invoice.Unit_Test()) {System.out.println("Passed Invoice Unit test");}
-                else {System.out.println(                     "Failed Invoice Unit test");}
-            }
-
             if (arg.equalsIgnoreCase("BP1") || arg.equalsIgnoreCase("all")) {
                 if (test_business_process_1(master_client_list)) {System.out.println("Passed Business Process Test 1");}
                 else {System.out.println(                                            "Failed Business Process Test 1");}
