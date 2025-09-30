@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Driver {
     public static void main(String[] args) {
@@ -28,7 +29,7 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP4") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_4()) {System.out.println("Passed Business Process Test 4");}
+                if (test_business_process_4(master_client_list, master_product_list)) {System.out.println("Passed Business Process Test 4");}
                 else {System.out.println(                          "Failed Business Process Test 4");}
             }
 
@@ -219,8 +220,43 @@ public class Driver {
      *      - A client should be able to specify a product and an associated quantity that they plan to purchase in the near future.
      *      - The system will keep track of all this information.
      */
-    static public boolean test_business_process_4() {
-        return false;
+    static public boolean test_business_process_4(List<Client> master_client_list, List<Product> master_product_list) {
+        boolean pass = true;
+
+        Random rand = new Random();
+
+        // Get 5 clients at random
+        for (int i = 0; i < 5; i++) {
+            // Get a random person
+            Client random_client = master_client_list.get(rand.nextInt(RAW_CLIENT_INFO.size()));
+
+            List<Product> stuff_we_added_to_the_client_wishlist = new ArrayList<Product>();
+
+            // Add 5 products to thier list
+            for (int j = 0; j < 5; j++) {
+                int random_index = rand.nextInt(RAW_PRODUCT_INFO.size());
+
+                random_client.add_to_wishlist(master_product_list.get(random_index));
+                stuff_we_added_to_the_client_wishlist.add(master_product_list.get(random_index));
+            }
+
+            boolean found_it = false;
+
+            List<Product> added_with_handler = random_client.get_wishlist().get_product_list();
+            for (Product product : added_with_handler) {
+                for (Product product_2 : stuff_we_added_to_the_client_wishlist) {
+                    if (product_2.equals(product)) {
+                        found_it = true;
+                    }
+                }
+            }
+
+            if (!found_it) {
+                pass = false;
+            }
+        }
+
+        return pass;
     }
 
     /** Business Process 5

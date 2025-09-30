@@ -75,6 +75,9 @@ public class Client {
         this.post_transaction(invoice);
         return invoice;
     }
+    public Wishlist get_wishlist() {
+        return new Wishlist(this.wishlist);
+    }
 
 
     // Primary constructor
