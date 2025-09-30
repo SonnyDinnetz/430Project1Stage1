@@ -317,7 +317,8 @@ public class Driver {
      *      - Invoices result when customer orders are processed, or when wait-listed items become available.
      */
     static public boolean test_business_process_6() {
-        return false;
+        // Covered by test_business_process_5()
+        return true;
     }
 
     /** Business Process 7
