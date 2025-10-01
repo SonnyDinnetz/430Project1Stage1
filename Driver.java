@@ -16,53 +16,53 @@ public class Driver {
 
         for (String arg : args) {
             if (arg.equalsIgnoreCase("BP1") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_1(master_client_list)) {System.out.println("Passed Business Process Test 1");}
-                else {System.out.println(                                            "Failed Business Process Test 1");}
+                if (test_business_process_1(master_client_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 1" + "\u001B[0m");}
+                else {System.out.println(                                            "\u001B[31m" + "Failed Business Process Test 1" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP2") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_2(master_product_list)) {System.out.println("Passed Business Process Test 2");}
-                else {System.out.println(                                             "Failed Business Process Test 2");}
+                if (test_business_process_2(master_product_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 2" + "\u001B[0m");}
+                else {System.out.println(                                             "\u001B[31m" + "Failed Business Process Test 2" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP3") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_3()) {System.out.println("Passed Business Process Test 3");}
-                else {System.out.println(                          "Failed Business Process Test 3");}
+                if (test_business_process_3()) {System.out.println("\u001B[32m" + "Passed Business Process Test 3" + "\u001B[0m");}
+                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 3" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP4") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_4(master_client_list, master_product_list)) {System.out.println("Passed Business Process Test 4");}
-                else {System.out.println(                          "Failed Business Process Test 4");}
+                if (test_business_process_4(master_client_list, master_product_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 4" + "\u001B[0m");}
+                else {System.out.println(                                                                 "\u001B[31m" + "Failed Business Process Test 4" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP5") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_5(master_client_list, master_product_list)) {System.out.println("\nPassed Business Process Test 5");}
-                else {System.out.println(                                                                 "\nFailed Business Process Test 5");}
+                if (test_business_process_5(master_client_list, master_product_list)) {System.out.println("\u001B[32m" + "\nPassed Business Process Test 5" + "\u001B[0m");}
+                else {System.out.println(                                                                 "\u001B[31m" + "\nFailed Business Process Test 5" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP6") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_6()) {System.out.println("Passed Business Process Test 6");}
-                else {System.out.println(                          "Failed Business Process Test 6");}
+                if (test_business_process_6()) {System.out.println("\u001B[32m" + "Passed Business Process Test 6" + "\u001B[0m");}
+                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 6" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP7") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_7()) {System.out.println("Passed Business Process Test 7");}
-                else {System.out.println(                          "Failed Business Process Test 7");}
+                if (test_business_process_7(master_client_list, master_product_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 7" + "\u001B[0m");}
+                else {System.out.println(                                                                 "\u001B[31m" + "Failed Business Process Test 7" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP8") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_8()) {System.out.println("Passed Business Process Test 8");}
-                else {System.out.println(                          "Failed Business Process Test 8");}
+                if (test_business_process_8()) {System.out.println("\u001B[32m" + "Passed Business Process Test 8" + "\u001B[0m");}
+                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 8" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP9") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_9()) {System.out.println("Passed Business Process Test 9");}
-                else {System.out.println(                          "Failed Business Process Test 9");}
+                if (test_business_process_9()) {System.out.println("\u001B[32m" + "Passed Business Process Test 9" + "\u001B[0m");}
+                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 9" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP10") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_10()) {System.out.println("Passed Business Process Test 10");}
-                else {System.out.println(                           "Failed Business Process Test 10");}
+                if (test_business_process_10()) {System.out.println("\u001B[32m" + "Passed Business Process Test 10" + "\u001B[0m");}
+                else {System.out.println(                           "\u001B[31m" + "Failed Business Process Test 10" + "\u001B[0m");}
             }
         }
     }
@@ -328,8 +328,28 @@ public class Driver {
      *      - Note that a client order can be processed and shipped before the payment has been made.
      *      - In other words, placing and processing the orders is independent of the payment process.
      */
-    static public boolean test_business_process_7() {
-        return false;
+    static public boolean test_business_process_7(List<Client> master_client_list, List<Product> master_product_list) {
+        Client client = master_client_list.get(0);          // get a client
+
+        client.add_to_wishlist(master_product_list.get(0)); // Just add some stuff to thier list
+        client.add_to_wishlist(master_product_list.get(1));
+        client.add_to_wishlist(master_product_list.get(2));
+        client.add_to_wishlist(master_product_list.get(3));
+
+        Invoice invoice = client.process_order();   // Process the order
+
+        double cost = invoice.get_total_price();    // Get the cost of the order from the invoice
+
+        client.accept_payment(cost);    // Pay it off
+
+        double client_owes = client.get_balance();  // Check the client balance
+
+        if (client_owes > 0) {  // If it's not paid off something went wrong
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /** Business Process 8
