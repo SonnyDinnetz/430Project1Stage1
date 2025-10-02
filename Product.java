@@ -1,7 +1,26 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Product {
     private static Scanner scanner = new Scanner(System.in);
+    public static void accept_shipment(List<Product> shipment_list, List<Product> master_product_list) {
+        for (Product product : shipment_list) {
+            boolean found_one = false;
+
+            for (Product m_product : master_product_list) {
+                if (product.equals(m_product)) {
+                    m_product.set_qty(m_product.get_qty() + product.get_qty());
+                    found_one = true;
+                    break;
+                }
+            }
+
+            if (!found_one) {
+                master_product_list.add(new Product(product));
+            }
+        }
+    }
+
 
     // Ensures each uid is unique, would need to be stashed when a power cycle occurs
     private static int next_uid;

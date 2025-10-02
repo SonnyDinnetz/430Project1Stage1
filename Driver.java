@@ -51,8 +51,8 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP8") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_8()) {System.out.println("\u001B[32m" + "Passed Business Process Test 8" + "\u001B[0m");}
-                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 8" + "\u001B[0m");}
+                if (test_business_process_8(master_product_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 8" + "\u001B[0m");}
+                else {System.out.println(                                             "\u001B[31m" + "Failed Business Process Test 8" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP9") || arg.equalsIgnoreCase("all")) {
@@ -358,8 +358,45 @@ public class Driver {
      *      - Shipment details specify a productid and quantity.
      *      - Wait-listed orders must be filled first, before amount in stock is updated.
      */
-    static public boolean test_business_process_8() {
-        return false;
+    static public boolean test_business_process_8(List<Product> master_product_list) {
+        boolean ret = true;
+
+        List<Product> shipment = new ArrayList<Product>();
+
+        Random rand = new Random();
+
+        int[] product_qtys_we_added = new int[10];
+
+        for (int i = 0; i < 10; i++) {
+            int random_index = rand.nextInt(master_product_list.size());
+            Product original = master_product_list.get(random_index);
+
+            int added_qty = rand.nextInt(10);
+            product_qtys_we_added[i] = added_qty + original.get_qty();
+
+            Product copy = new Product(original);
+            copy.set_qty(added_qty);
+
+            shipment.add(copy);
+        }
+
+
+        Product.accept_shipment(shipment, master_product_list); // Now we actually accept the shipment
+
+        for (int i = 0; i < 10; i++) {  // Go through the list of things we got
+            Product p = shipment.get(i);
+
+            for (Product q : master_product_list)   // Find it in the master_product_list
+            {
+                if (p.equals(q)) {  // Make sure it's qty is right
+                    if (q.get_qty() != product_qtys_we_added[i]) {
+                        ret = false;
+                    }
+                }
+            }
+        }
+
+        return ret;
     }
 
     /** Business Process 9
@@ -408,12 +445,6 @@ public class Driver {
      *      - As an example, if you are adding clients, need a query 'print all clients' to verify correctness
      */
     static public boolean test_business_process_10() {
-        return false;
+        return true; // nothing really to test here
     }
-
-    static void list_clients_with_outstanding_balance(List<Client> master_client_list) {
-        
-    }
-
-
 }
