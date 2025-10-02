@@ -56,8 +56,8 @@ public class Driver {
             }
 
             if (arg.equalsIgnoreCase("BP9") || arg.equalsIgnoreCase("all")) {
-                if (test_business_process_9()) {System.out.println("\u001B[32m" + "Passed Business Process Test 9" + "\u001B[0m");}
-                else {System.out.println(                          "\u001B[31m" + "Failed Business Process Test 9" + "\u001B[0m");}
+                if (test_business_process_9(master_client_list, master_product_list)) {System.out.println("\u001B[32m" + "Passed Business Process Test 9" + "\u001B[0m");}
+                else {System.out.println(                                                                 "\u001B[31m" + "Failed Business Process Test 9" + "\u001B[0m");}
             }
 
             if (arg.equalsIgnoreCase("BP10") || arg.equalsIgnoreCase("all")) {
@@ -369,8 +369,34 @@ public class Driver {
      *      - List all clients who have an outstanding balance.
      *      - List all products, quantity in stock, and total quantity of outstanding(waitlisted) orders.
      */
-    static public boolean test_business_process_9() {
-        return false;
+    static public boolean test_business_process_9(List<Client> master_client_list, List<Product> master_product_list) {
+        boolean pass = true;
+
+        Client client = master_client_list.get(10);          // get a client that doesn't have anything yet
+
+        for (int i = 0; i < 5; i++) /// Do this 5 times
+        {
+            client.add_to_wishlist(master_product_list.get(0)); // Just add some something to thier list
+            client.process_order();           // Process the order
+        }
+
+        List<Invoice> list = client.get_transaction_history();
+        if (list.size() != 5) // There will be 5 invoices
+        {
+            pass = false;
+        }
+
+        for (Client client2 : master_client_list) { // Nothing to pass/fail here, should print the prev client
+            if (client2.get_balance() < 0) {
+                System.out.println(client2);
+            }
+        }
+
+        for (Product product : master_product_list) { // Nothing to pass/fail here, will just print all the products and qtys
+            System.out.println(product);
+        }
+
+        return pass;
     }
 
     /** Business Process 10
@@ -384,4 +410,10 @@ public class Driver {
     static public boolean test_business_process_10() {
         return false;
     }
+
+    static void list_clients_with_outstanding_balance(List<Client> master_client_list) {
+        
+    }
+
+
 }
